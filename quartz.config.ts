@@ -75,6 +75,7 @@ const config: QuartzConfig = {
     ],
     filters: [Plugin.RemoveDrafts()],
     emitters: [
+      Plugin.Static(),
       Plugin.AliasRedirects(),
       Plugin.ComponentResources(),
       Plugin.ContentPage(),
@@ -85,7 +86,6 @@ const config: QuartzConfig = {
         enableRSS: true,
       }),
       Plugin.Assets(),
-      Plugin.Static(),
       Plugin.Favicon(),
       Plugin.NotFoundPage(),
       // Comment out CustomOgImages to speed up build time
