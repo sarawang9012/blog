@@ -2,9 +2,6 @@
 title: Obsidian + Quartz 搭建个人博客全记录
 publish: true
 ---
-
-# Obsidian + Quartz 搭建个人博客全记录
-
 > 从零开始，将 Obsidian 笔记发布为 GitHub Pages 博客
 
 ## 一、环境准备
