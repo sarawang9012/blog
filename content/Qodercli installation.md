@@ -14,4 +14,9 @@ npm: unknown
 Binary path: C:\Users\iamno\AppData\Local\Volta\tools\image\packages\@qoder-ai\qodercli\node_modules\@qoder-ai\qodercli\bin\qodercli.exe
 ```
 
-Then I use everything to search for qodercli.exex 
+Then I use everything to search for qodercli.exe and found its location:
+
+![[Pasted image 20260421141555.png]]
+
+It is managed by nvm. and node version is 24.13.0. 
+So I execute `nvm use 24.13.0` and then input `qodercli`, everything is fine.
