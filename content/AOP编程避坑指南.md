@@ -326,23 +326,23 @@ public Object aroundSmsSend(ProceedingJoinPoint joinPoint) throws Throwable {
 
 ```java
 // ❌ 范围太大，可能拦截不该拦截的方法
-@Pointcut("execution(* io.renren.modules..*.*(..))")
+@Pointcut("execution(* io.modules..*.*(..))")
 
 // ✅ 精确到具体方法
-@Pointcut("execution(* io.renren.modules.open.service.impl.CommonApiServiceImpl.smsSend(..))")
+@Pointcut("execution(* io.modules.open.service.impl.CommonApiServiceImpl.smsSend(..))")
 ```
 
 ---
 
 ## 总结
 
-| 核心原则 | 说明 |
-|---------|------|
-| 只拦截 Spring Bean | 手动 new 的对象不会被拦截 |
-| 同类调用不生效 | `this.method()` 不走代理 |
-| 异常必须抛出 | 吞掉异常会导致调用方误判 |
-| 耗时操作要异步 | 切面内不要阻塞主流程 |
-| 引用路径要正确 | 找不到类会导致切面失败 |
-| 职责要单一 | 一个切面只做一件事 |
+| 核心原则            | 说明                   |
+| --------------- | -------------------- |
+| 只拦截 Spring Bean | 手动 new 的对象不会被拦截      |
+| 同类调用不生效         | `this.method()` 不走代理 |
+| 异常必须抛出          | 吞掉异常会导致调用方误判         |
+| 耗时操作要异步         | 切面内不要阻塞主流程           |
+| 引用路径要正确         | 找不到类会导致切面失败          |
+| 职责要单一           | 一个切面只做一件事            |
 
 > **一句话总结：** AOP 很强大，但要记住它只拦截 Spring 管理的 Bean 的 public 方法，且同类内部调用不生效。
