@@ -2,6 +2,7 @@
 
 ## 前言
 
+本文档基于本项目短信验证码审计日志功能的实际开发经验总结，列举了 Spring AOP 编程中常见的坑和注意事项。
 
 ---
 
@@ -51,14 +52,14 @@ public class SomeService {
 
 ```java
 // ❌ 包名写错，切面不会生效
-@Pointcut("execution(* io.renren.modules.open.service.CommonApiServiceImpl.smsSend(..))")
+@Pointcut("execution(* io.modules.open.service.CommonApiServiceImpl.smsSend(..))")
 // 实际包是 service.impl，不是 service
 
 // ❌ 方法名拼写错误
 @Pointcut("execution(* ...smsSned(..))")
 
 // ✅ 正确写法：包名、类名、方法名必须完全匹配
-@Pointcut("execution(* io.renren.modules.open.service.impl.CommonApiServiceImpl.smsSend(..))")
+@Pointcut("execution(* io.modules.open.service.impl.CommonApiServiceImpl.smsSend(..))")
 ```
 
 ### 2.2 验证切入点是否生效
@@ -223,13 +224,13 @@ Order(1) 前置 → Order(2) 前置 → Order(3) 前置 → 目标方法 → Ord
 
 Spring AOP 是**运行期**基于动态代理实现的，以下方法无法被拦截：
 
-| 方法类型 | 能否拦截 | 原因 |
-|---------|---------|------|
-| `public` 方法 | ✅ 能 | 正常代理 |
-| `final` 方法 | ❌ 不能 | 不能被重写 |
-| `private` 方法 | ❌ 不能 | 代理类无法访问 |
-| `static` 方法 | ❌ 不能 | 属于类级别，不走实例 |
-| `protected` 方法 | ⚠️ 视情况 | 取决于代理方式 |
+| 方法类型           | 能否拦截   | 原因         |
+| -------------- | ------ | ---------- |
+| `public` 方法    | ✅ 能    | 正常代理       |
+| `final` 方法     | ❌ 不能   | 不能被重写      |
+| `private` 方法   | ❌ 不能   | 代理类无法访问    |
+| `static` 方法    | ❌ 不能   | 属于类级别，不走实例 |
+| `protected` 方法 | ⚠️ 视情况 | 取决于代理方式    |
 
 ```java
 public class SomeService {
@@ -252,10 +253,10 @@ public class SomeService {
 
 ```java
 // ❌ 错误：JavaAesCommonUtils 不在 common.utils 包下
-import io.renren.common.utils.JavaAesCommonUtils;
+import io.common.utils.JavaAesCommonUtils;
 
 // ✅ 正确：实际在 zk 子包下
-import io.renren.common.utils.zk.JavaAesCommonUtils;
+import io.common.utils.zk.JavaAesCommonUtils;
 ```
 
 **经验：** 切面编译失败时，检查所有 import 的类是否能找到。
@@ -266,16 +267,16 @@ import io.renren.common.utils.zk.JavaAesCommonUtils;
 
 当切面不生效时，按以下顺序逐一检查：
 
-| 检查项 | 说明 |
-|-------|------|
+| 检查项                 | 说明                                           |
+| ------------------- | -------------------------------------------- |
 | 1. 类是否是 Spring Bean | 是否有 `@Component`/`@Service`/`@Controller` 注解 |
-| 2. 切面类是否被扫描 | 切面类所在包是否在组件扫描范围内 |
-| 3. 切入点表达式是否正确 | 包名、类名、方法名是否完全匹配 |
-| 4. 切面是否被调用 | 在切面方法第一行加日志确认 |
-| 5. 代理是否创建 | 启动时看日志是否有 AOP 相关日志 |
-| 6. 依赖是否完整 | 切面引用的类是否能找到 |
-| 7. 是否被同类调用 | 同类内部调用不会触发切面 |
-| 8. 方法是否是 public | private/final/static 方法无法拦截 |
+| 2. 切面类是否被扫描         | 切面类所在包是否在组件扫描范围内                             |
+| 3. 切入点表达式是否正确       | 包名、类名、方法名是否完全匹配                              |
+| 4. 切面是否被调用          | 在切面方法第一行加日志确认                                |
+| 5. 代理是否创建           | 启动时看日志是否有 AOP 相关日志                           |
+| 6. 依赖是否完整           | 切面引用的类是否能找到                                  |
+| 7. 是否被同类调用          | 同类内部调用不会触发切面                                 |
+| 8. 方法是否是 public     | private/final/static 方法无法拦截                  |
 
 ---
 
