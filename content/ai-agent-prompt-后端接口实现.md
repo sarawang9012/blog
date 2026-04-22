@@ -25,13 +25,13 @@
 
 路径：`C:\Users\iamno\work\git\zxiaowei\zxw-loan-market-new\zxw-loan-market`
 
-| 接口 | 参考文件 |
-|------|---------|
-| `/biz/channel/getPageCodeByIp` | `zxw-loan-market-api/.../infostream/controller/ChannelController.java`（line 122）|
-| `/infostream/rt2` | `zxw-loan-market-api/.../infostream/controller/InfoStreamController.java`（line 168）|
-| `/biz/tEventRecordNew/addRecord` | `zxw-loan-market-api/.../infostream/controller/TEventRecordNewController.java`（line 65）|
-| 各接口 Service 层 | `zxw-loan-market-common/.../biz/service/` 及 `impl/` 子目录 |
-| 各接口 Entity/DAO | `zxw-loan-market-common/.../biz/entity/`、`biz/dao/`、`resources/mapper/biz/` |
+| 接口                               | 参考文件                                                                                    |
+| -------------------------------- | --------------------------------------------------------------------------------------- |
+| `/biz/channel/getPageCodeByIp`   | `zxw-loan-market-api/.../infostream/controller/ChannelController.java`（line 122）        |
+| `/infostream/rt2`                | `zxw-loan-market-api/.../infostream/controller/InfoStreamController.java`（line 168）     |
+| `/biz/tEventRecordNew/addRecord` | `zxw-loan-market-api/.../infostream/controller/TEventRecordNewController.java`（line 65） |
+| 各接口 Service 层                    | `zxw-loan-market-common/.../biz/service/` 及 `impl/` 子目录                                 |
+| 各接口 Entity/DAO                   | `zxw-loan-market-common/.../biz/entity/`、`biz/dao/`、`resources/mapper/biz/`             |
 
 ### 参考前端项目（接口调用方式的权威参考）
 
@@ -51,18 +51,18 @@
 
 ### 后端项目（主要开发目标）
 
-| 项目 | 路径 | 说明 |
-|------|------|------|
-| **loan-market-api** | `C:\Users\iamno\work\.SaveToNAS\贷超\git\loan-market-api` | 所有新接口在此实现 |
+| 项目                     | 路径                                                                 | 说明                                 |
+| ---------------------- | ------------------------------------------------------------------ | ---------------------------------- |
+| **loan-market-api**    | `C:\Users\iamno\work\.SaveToNAS\贷超\git\loan-market-api`            | 所有新接口在此实现                          |
 | **loan-market-common** | `C:\Users\iamno\work\.SaveToNAS\贷超\loan-market\loan-market-common` | 共享的 Service/Entity/DAO 层（部分已存在可复用） |
-| **loan-market-admin** | `C:\Users\iamno\work\.SaveToNAS\贷超\loan-market\loan-market-admin` | 仅参考，不在其中开发 |
+| **loan-market-admin**  | `C:\Users\iamno\work\.SaveToNAS\贷超\loan-market\loan-market-admin`  | 仅参考，不在其中开发                         |
 
 ### 前端项目（需同步修改 API 调用）
 
-| 项目 | 路径 | 说明 |
-|------|------|------|
+| 项目                          | 路径                                                           | 说明         |
+| --------------------------- | ------------------------------------------------------------ | ---------- |
 | **car-loan-alipay-miniapp** | `C:\Users\iamno\work\.SaveToNAS\web\car-loan-alipay-miniapp` | 支付宝小程序（A面） |
-| **car-loan-h5** | `C:\Users\iamno\work\.SaveToNAS\web\car-loan-h5` | B面 H5 独立项目 |
+| **car-loan-h5**             | `C:\Users\iamno\work\.SaveToNAS\web\car-loan-h5`             | B面 H5 独立项目 |
 
 ---
 
@@ -162,3 +162,6 @@
 5. **编译验证**：每个接口实现后，确认 `loan-market-api` 项目能编译通过
 
 6. **前端同步**：后端接口路径确定后，同步修改前端 `api/index.ts` 中的接口调用
+
+7. 参考项目相关代码如果用到了com.fidaframe,com.fida,com.zxiaowei包下面的代码，记得要对相关代码进行改造。切记，我们不能引入这些依赖。
+
